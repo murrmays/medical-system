@@ -1,7 +1,7 @@
 # MedEdu System
 
 ![Status](https://img.shields.io/badge/status-learning--project-blue)
-![Progress](https://img.shields.io/badge/progress-40%25-brightgreen)
+![Progress](https://img.shields.io/badge/progress-70%25-brightgreen)
 
 Система управления клиникой, электронными медицинскими картами и записью пациентов.
 
