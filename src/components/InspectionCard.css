@@ -1,0 +1,150 @@
+.inspection-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 5px solid var(--med-blue);
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  position: relative;
+}
+
+.inspection-card-death {
+  background-color: var(--light-gray);
+}
+
+.card-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.25rem;
+  color: var(--med-blue);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 240px;
+  display: block;
+  text-overflow: ellipsis;
+}
+
+.patient-details {
+  display: flex;
+  gap: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+.detail-item p {
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 640px;
+  display: block;
+  text-overflow: ellipsis;
+}
+
+.add-inspection-btn,
+.inspection-details-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: transparent;
+  color: var(--med-blue);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 4px !important;
+}
+
+.add-inspection-btn-hidden {
+  display: none !important;
+}
+
+.add-inspection-btn:hover,
+.inspection-details-btn:hover {
+  color: var(--med-accent);
+  transform: scale(1.1);
+}
+
+.icon {
+  width: 15px;
+}
+
+.top-row,
+.bottom-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom-row {
+  margin-bottom: 1rem;
+}
+
+.chain-node {
+  border-left: 2px solid var(--med-accent-light);
+  margin-top: 10px;
+  padding-left: 1rem;
+  transition: all 0.3s ease;
+}
+
+.chain-trigger-wrapper {
+  margin: 10px 0;
+}
+
+.chain-expand-button {
+  background: none;
+  border: 1px dashed var(--med-accent);
+  color: var(--med-accent);
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+@media (min-width: 880px) {
+  .card-title {
+    white-space: normal;
+    overflow: visible;
+    max-width: none;
+    text-align: left;
+  }
+  .detail-item p {
+    max-width: 300px;
+  }
+  .btn-text {
+    display: none;
+  }
+
+  .add-inspection-btn,
+  .inspection-details-btn {
+    display: flex;
+    width: 44px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    transition: background 0.2s ease;
+  }
+  .add-inspection-btn:hover,
+  .inspection-details-btn:hover {
+    background: var(--med-light);
+  }
+  .add-inspection-btn .icon,
+  .inspection-details-btn .icon {
+    width: 24px;
+    height: 24px;
+  }
+}

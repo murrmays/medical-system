@@ -1,0 +1,127 @@
+.auth-page-root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: repeating-linear-gradient(
+    90deg,
+    white,
+    white 60px,
+    var(--stripe-color) 60px,
+    var(--stripe-color) 120px
+  );
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-wrapper {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.auth-form {
+  background-color: var(--paper-bg);
+  width: 100%;
+  max-width: 680px;
+  padding: 3.5rem;
+  position: relative;
+  border: 1px solid #0000000d;
+  box-shadow: 0 12px 20px #0000000d;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.auth-form h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.2rem;
+  color: var(--med-blue);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-field label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--med-accent);
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #cbd5e0;
+  padding: 0.8rem 0;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  outline: none;
+  border-bottom-color: var(--med-blue);
+  background: #2b6cb005;
+}
+
+.error-message {
+  font-size: 0.75rem;
+  color: #e53e3e;
+  margin-top: 0.2rem;
+}
+
+button[type="submit"] {
+  margin-top: 2rem;
+  background-color: var(--med-blue);
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button[type="submit"]:hover {
+  background: transparent;
+  border: 1.5px solid var(--med-blue);
+  color: var(--med-blue);
+  transform: translateY(-2px);
+}
+
+.switch-btn {
+  background: none;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-gray);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  transition: color 0.2s;
+}
+
+.switch-btn:hover {
+  color: var(--med-blue);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+}

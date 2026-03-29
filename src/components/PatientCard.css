@@ -1,0 +1,44 @@
+.patient-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 5px solid var(--med-blue);
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  cursor: pointer;
+}
+
+.patient-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(26, 54, 93, 0.06);
+  border-left-width: 10px;
+}
+
+.patient-name {
+  font-family: "Playfair Display", serif;
+  font-size: 1.25rem;
+  color: var(--med-blue);
+  margin-bottom: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 240px;
+  display: block;
+  text-overflow: ellipsis;
+}
+
+.patient-details {
+  display: flex;
+  gap: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}

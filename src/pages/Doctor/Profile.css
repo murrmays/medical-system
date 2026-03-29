@@ -1,0 +1,195 @@
+.profile-page-root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: repeating-linear-gradient(
+    90deg,
+    white,
+    white 60px,
+    var(--stripe-color) 60px,
+    var(--stripe-color) 120px
+  );
+}
+
+.profile-wrapper {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.profile-card {
+  background-color: var(--paper-bg);
+  padding: 4rem;
+  border: 1px solid #0000000d;
+  box-shadow: 0 12px 20px #0000000d;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.profile-header h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  color: var(--med-blue);
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: start;
+}
+
+.info-item label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--med-accent);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.info-item input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #cbd5e0;
+  padding: 0.8rem 0;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+}
+
+.info-item input:focus {
+  outline: none;
+  border-bottom-color: var(--med-blue);
+  background: #2b6cb005;
+}
+
+.info-item p {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  font-weight: 500;
+  border-bottom: 1px dotted #cbd5e0;
+  padding-bottom: 0.5rem;
+}
+
+.speciality-badge {
+  color: var(--med-blue) !important;
+  font-weight: 600 !important;
+}
+
+.edit-profile-btn {
+  width: 100%;
+  background: transparent;
+  border: 1.5px solid var(--med-blue);
+  color: var(--med-blue);
+  padding: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.edit-profile-btn:hover {
+  background-color: var(--med-blue);
+  color: white;
+}
+
+.profile-actions {
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.edit-buttons-group {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+.edit-buttons-group button {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+  margin-top: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.cancel-btn {
+  flex: 1;
+  background: transparent;
+  border: 1.5px solid var(--med-blue);
+  color: var(--med-blue);
+  padding: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+  background-color: var(--med-blue);
+  color: white;
+}
+
+.info-item.full-width {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.info-item.full-width label {
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mantine-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0.8rem 0;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+  .profile-card {
+    padding: 2rem;
+  }
+}

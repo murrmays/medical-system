@@ -1,0 +1,158 @@
+.create-inspec-page-root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  background-image: radial-gradient(#93b4df 1px, transparent 1px);
+  background-size: 30px 30px;
+  position: relative;
+  align-items: center;
+  text-align: left;
+  padding: 3rem;
+}
+
+.create-inspec-wrapper {
+  max-width: 980px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.create-inspec-wrapper section {
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.medical-info label,
+.treatment label,
+.conclusion-select label {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.delete-btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0 !important;
+  align-items: center;
+  justify-content: center;
+  border: none !important;
+  background: transparent !important;
+  color: var(--text-gray) !important;
+}
+
+.delete-btn-icon:hover {
+  color: var(--med-blue) !important;
+}
+
+.create-inspec-wrapper section > p,
+.diagnoses p {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.diagnoses-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 20px;
+}
+
+.consultation-switch {
+  margin-bottom: 20px;
+}
+
+.header-card {
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -12px -12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: start;
+}
+
+.header-card > span:first-child {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-card > span:nth-child(2) {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+}
+
+.create-inspec-wrapper button {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-inspec-wrapper button[type="submit"] {
+  border-radius: 0;
+  margin: 0;
+}
+
+.create-inspec-wrapper button:not([type="submit"]) {
+  background-color: transparent;
+  color: var(--med-blue);
+  border-radius: 0 !important;
+  border: 1px solid var(--med-blue);
+}
+
+.create-inspec-wrapper button:not([type="submit"]):hover {
+  background-color: var(--med-blue);
+  color: white;
+  border: 1px solid var(--med-blue);
+}
+
+.create-inspec-wrapper button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-footer {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.form-footer button {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.create-inspec-wrapper .mantine-Radio-radio:checked,
+.create-inspec-wrapper .mantine-Radio-radio[data-checked] {
+  background-color: var(--med-accent) !important;
+  border-color: var(--med-accent) !important;
+}
+.create-inspec-wrapper .mantine-Input-wrapper input:focus,
+.create-inspec-wrapper .mantine-Input-wrapper textarea:focus,
+.create-inspec-wrapper .mantine-Input-input:focus {
+  border-color: var(--med-accent) !important;
+}

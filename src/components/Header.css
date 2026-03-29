@@ -1,0 +1,231 @@
+.main-header {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.main-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--med-blue),
+    var(--med-blue) 20px,
+    var(--med-accent) 20px,
+    var(--med-accent) 40px
+  );
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.section-container {
+  display: flex;
+  gap: 20px;
+}
+
+.section-link {
+  text-decoration: none;
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.section-link:hover {
+  color: var(--med-blue);
+  background-color: rgba(26, 54, 93, 0.05);
+}
+
+.section-link.active {
+  color: var(--med-blue);
+  background-color: rgba(26, 54, 93, 0.08);
+  font-weight: 600;
+  border-radius: 2px;
+}
+
+.logo-text {
+  font-family: "Playfair Display", serif;
+  font-size: 1.6rem;
+  color: var(--med-blue);
+  font-style: italic;
+}
+
+.auth-toggle-btn {
+  background-color: var(--med-blue);
+  max-height: fit-content;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 2px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.auth-toggle-btn:hover {
+  background: transparent;
+  border: 1.5px solid var(--med-blue);
+  color: var(--med-blue);
+  transform: translateY(-2px);
+}
+
+.user-dropdown-container {
+  position: relative;
+}
+
+.user-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--med-blue);
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 2px;
+  cursor: pointer;
+  max-width: 250px;
+  flex-shrink: 0;
+}
+
+.username-truncated {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.arrow-icon {
+  transition: transform 0.2s ease;
+}
+
+.arrow-icon.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 2px;
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu button {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+.dropdown-item:hover {
+  background-color: var(--stripe-color);
+}
+
+.dropdown-item.logout {
+  color: #e53e3e;
+}
+
+.profile-info {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  padding: 1rem;
+}
+
+.divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 0;
+}
+
+.mantine-Drawer-body .section-link {
+  display: block;
+  border-bottom: 1px solid #f1f3f5;
+  text-align: left;
+}
+
+.mantine-Drawer-body .section-link:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 1024px) {
+  .main-header {
+    padding: 0 2%;
+    height: 70px;
+  }
+  .header-left {
+    gap: 20px;
+  }
+  .section-container {
+    gap: 10px;
+  }
+  .section-link {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 780px) {
+  .username-truncated {
+    display: none;
+  }
+  .user-profile-btn {
+    padding: 8px;
+    width: 40px;
+    justify-content: center;
+  }
+  .user-profile-btn .arrow-icon {
+    margin: 0;
+  }
+}
+
+@media (min-width: 400px) {
+  .burger-btn,
+  .drawer {
+    display: none !important;
+  }
+}

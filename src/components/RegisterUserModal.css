@@ -1,0 +1,56 @@
+.mantine-Modal-content {
+  background-color: var(--paper-bg) !important;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.mantine-Modal-header {
+  background-color: var(--paper-bg) !important;
+  padding-bottom: 30px !important;
+  justify-content: center;
+}
+
+.mantine-Modal-title {
+  word-wrap: break-word;
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  color: var(--med-blue);
+  font-weight: 600;
+}
+
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: start;
+}
+
+.info-item.full-width {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.modal-submit-btn {
+  height: 50px !important;
+  background-color: var(--med-blue) !important;
+  color: white;
+  border: none;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  border-radius: 0 !important;
+  transition: all 0.3s;
+}
+
+.modal-submit-btn:hover {
+  background-color: transparent !important;
+  color: var(--med-blue);
+  border: solid 1px var(--med-blue);
+}
