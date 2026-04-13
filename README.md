@@ -79,3 +79,9 @@ src/
     </td>
   </tr>
 </table>
+
+## Контакты
+
+Мой телеграмм: @murrmays
+
+Почта: maria40va@gmail.com
