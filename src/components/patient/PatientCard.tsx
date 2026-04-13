@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import type { Patient } from "../api/patient";
+import type { Patient } from "../../api/patient";
 import "./PatientCard.css";
 
 interface PatientCardProps {

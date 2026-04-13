@@ -1,98 +1,42 @@
-# MedEdu System
-
-![Status](https://img.shields.io/badge/status-learning--project-blue)
-![Progress](https://img.shields.io/badge/progress-70%25-brightgreen)
+# Medical System
 
 Система управления клиникой, электронными медицинскими картами и записью пациентов.
 
-![React](https://img.shields.io/badge/React-18.x-blue)
-![Vite](https://img.shields.io/badge/Vite-3.x-646CFF)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6)
+## Доступный функционал
 
-**Проект в разработке.**
+- Авторизация врача
+- Просмотр и редактирование личного кабинета
+- Просмотр пациентов с фильтрацией
+- Регистрация нового пациента
+- Просмотр медицинской карты больного, списка его осмотров
+- Просмотр деталей, добавление и редактирование осмотра
+- Страница с консультациями, соответствующими специальности авторизованного врача
+- Автоматическое формирование отчета по заболеваемости по определенным диагнозам в выбранном временном диапазоне
 
-Данный проект разрабатывается для отработки следующих навыков:
+## Использованные технологии
 
-- Проектирование сложных интерфейсов на **React**.
-- Работа с типизацией в **TypeScript**.
-- Организация архитектуры фронтенда.
-- Интеграция с API и обработка состояний (TanStack Query).
-- Аутентификация + авторизация (без ролевой модели).
-- Роутинг.
-- Работа с формами. Валидация форм (react-hook-form, zod).
-- Линтинг.
-- Пагинации и фильтрация. Квери-параметры.
-
-## Что уже можно посмотреть:
-
-1. Сверстанную страницу авторизации.
-2. Личный кабинет врача.
-3. Список пациентов с фильтрацией + создание нового пациента.
-4. Список осмотров конкретного пациента с фильтрацией.
-5. Создание осмотра конкретному пациенту.
-
-## Roadmap
-
-- [x] Инициализация проекта
-- [x] Настройка роутинга
-- [x] Авторизация и регистрация
-- [x] Личный кабинет врача
-- [x] Интеграция с бэкендом
-- [x] Список пациентов
-- [x] Список осмотров
-- [ ] Детали осмотра (в процессе)
-- [ ] Список консультаций
-- [ ] Создание и просмотр консультации
-- [ ] Создание отчетов
-- [ ] Создание системы комментариев
-
-## Features
-
-- **Панель врача:** Просмотр списка пациентов, создание осмотров и консультаций.
-- **Электронные карты:** Удобное ранение и редактирование данных пациентов.
-- **Отчеты:** Систематизация данных.
-
-## Tech Stack
-
-- **Frontend:** [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
-- **Язык:** [TypeScript](https://www.typescriptlang.org/)
-- **State Management:** [TanStack Query (React Query)](https://tanstack.com/query/latest)
-- **Формы:** [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
-- **Иконки:** [Lucide React](https://lucide.dev/)
+- **Frontend:** React + Vite
+- **Язык:** TypeScript
+- **Роутинг** React Router DOM
+- **State Management:** TanStack Query (React Query) + Axios
+- **Формы:** React Hook Form + Zod
+- **Иконки:** Lucide React
+- **UI библиотека:** Mantine UI
+- **Линтинг:** ESLint + Prettier, Import Sorting, Unused Imports, a11y
 
 ## Установка и запуск
 
-### Предварительные требования
+Установите зависимости:
 
-- Node.js (версия 18 или выше)
-- npm / yarn / pnpm
+```bash
+npm install
+```
 
-### Шаги для локального запуска
+Запустите сервер для разработки:
 
-1. **Клонируйте репозиторий:**
-
-   ```bash
-   git clone https://github.com/ваш-логин/название-репозитория.git
-   cd название-репозитория
-   ```
-
-2. **Установите зависимости**
-
-   ```bash
-   npm install
-   # или, если используете yarn:
-   yarn install
-   ```
-
-3. **Настройте переменные окружения**:
-
-   Создайте файл .env в корне проекта.
-
-4. **Запустите сервер разработки:**
-
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
 ### Структура проекта
 
@@ -102,8 +46,9 @@ src/
 ├── assets/ # Статические файлы (изображения, шрифты)
 ├── components/ # Общие UI-компоненты
 ├── hooks/ # Кастомные React хуки
-├── pages/ # Страницы приложения (Dashboard, Patients, Login)
+├── pages/ # Страницы приложения
 ├── types/ # TypeScript интерфейсы и типы
+├── utils/ # Вспомогательные функции
 ```
 
 ## Скриншоты
@@ -111,32 +56,26 @@ src/
 <table>
   <tr>
     <td width="50%" align="center">
-      <img src="https://github.com/user-attachments/assets/4b3183d0-b4f7-4f72-8174-71eb67c43fcf"" alt="Авторизация"/>
+      <img src="./src/assets/previews/login.png" alt="Авторизация"/>
       <br />
       <b>Страница входа</b>
     </td>
     <td width="50%" align="center">
-      <img src="https://github.com/user-attachments/assets/c074b0a7-dcbc-42c5-9173-ec3563ae51aa" alt="Список пациентов"/>
+      <img src="./src/assets/previews/patients.png" alt="Список пациентов"/>
       <br />
       <b>Реестр пациентов</b>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <img src="https://github.com/user-attachments/assets/2aa5fdc1-cb3c-4685-82df-22b25a36a7ff" alt="Медкарта"/>
+      <img src="./src/assets/previews/report.png" alt="Отчет"/>
       <br />
-      <b>Медицинская карта пациента</b>
+      <b>Отчет о заболеваемости</b>
     </td>
     <td width="50%" align="center">
-      <img src="https://github.com/user-attachments/assets/38706d0b-aeb6-4808-9bb1-2593d4f20878" alt="Профиль врача"/>
+      <img src="./src/assets/previews/cons.png" alt="Консультации"/>
       <br />
-      <b>Личный кабинет врача</b>
+      <b>Список консультаций</b>
     </td>
   </tr>
 </table>
-
-## Контакты
-
-Мой телеграмм: @murrmays
-
-Почта: maria40va@gmail.com

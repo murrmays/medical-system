@@ -1,0 +1,116 @@
+.inspection-details-page-root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  background-image: radial-gradient(#93b4df 1px, transparent 1px);
+  background-size: 30px 30px;
+  position: relative;
+  align-items: center;
+  text-align: left;
+  padding: 3rem;
+}
+
+.inspection-details-page-wrapper {
+  max-width: 980px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.inspection-details-page-wrapper section {
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.inspection-details-page-wrapper section > p {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-top: 0;
+}
+.details-header-card {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
+.section-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--med-accent);
+}
+
+.comment-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--med-accent);
+}
+
+.edit-btn {
+  width: 200px;
+  height: 40px;
+  color: white;
+  background-color: var(--med-blue);
+  transition: all ease 0.2s;
+}
+
+.edit-btn:hover {
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--med-blue);
+  color: var(--med-blue);
+}
+
+.edit-btn-display-none {
+  display: none;
+}
+.save-inspection-btn {
+  height: 52px;
+}
+.diagnoses-divider {
+  height: 1px;
+  margin: 0 !important;
+  background-color: #e2e8f0;
+}
+
+.create-inspec-wrapper button {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-inspec-wrapper button[type="submit"] {
+  border-radius: 0;
+  margin: 0;
+}
+
+.create-inspec-wrapper button:not([type="submit"]) {
+  background-color: transparent;
+  color: var(--med-blue);
+  border-radius: 0 !important;
+  border: 1px solid var(--med-blue);
+}
+
+.create-inspec-wrapper button:not([type="submit"]):hover {
+  background-color: var(--med-blue);
+  color: white;
+  border: 1px solid var(--med-blue);
+}
+
+.create-inspec-wrapper button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

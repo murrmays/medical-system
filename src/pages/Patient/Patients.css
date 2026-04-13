@@ -39,6 +39,7 @@
 
 .register-user-btn {
   background: var(--med-blue);
+  border: 1px solid var(--med-blue);
   color: white;
   padding: 1rem 1.5rem;
   font-family: "Montserrat", sans-serif;

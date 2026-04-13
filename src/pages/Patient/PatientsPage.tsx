@@ -2,7 +2,6 @@ import "./Patients.css";
 import { usePatientsFilter } from "../../hooks/patientsFilter";
 import { Conclusion, Sorting } from "../../types/enums";
 import {
-  Button,
   Checkbox,
   Loader,
   MultiSelect,
@@ -11,10 +10,10 @@ import {
 } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPatients } from "../../api/patient";
-import { PaginationFooter } from "../../components/PaginationFooter";
-import { PatientCard } from "../../components/PatientCard";
+import { PaginationFooter } from "../../components/general/PaginationFooter";
+import { PatientCard } from "../../components/patient/PatientCard";
 import { useDisclosure } from "@mantine/hooks";
-import { RegisterUserModal } from "../../components/RegisterUserModal";
+import { RegisterUserModal } from "../../components/patient/RegisterUserModal";
 
 export const PatientsPage = () => {
   const { filters, setFilters } = usePatientsFilter();
@@ -112,8 +111,7 @@ export const PatientsPage = () => {
                 value={String(filters.size)}
                 onChange={(val) => setFilters({ size: Number(val), page: 1 })}
               />
-              <Button
-                variant="unstyled"
+              <button
                 className="reset-btn"
                 onClick={() =>
                   setFilters({
@@ -127,7 +125,7 @@ export const PatientsPage = () => {
                 }
               >
                 Сбросить
-              </Button>
+              </button>
             </div>
           </section>
           <section className="patients-list">

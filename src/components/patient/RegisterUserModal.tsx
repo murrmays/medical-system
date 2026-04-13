@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import z from "zod";
-import { registerNewPatient } from "../api/patient";
+import { registerNewPatient } from "../../api/patient";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { Button, Modal, Select, TextInput } from "@mantine/core";
@@ -80,8 +80,10 @@ export const RegisterUserModal = ({ opened, onClose }: RegisterUserProps) => {
               label="ФИО"
               placeholder="Иванов Иван Иванович"
               {...register("name")}
-              error={errors.name?.message}
             />
+            {errors.name && (
+              <span className="error-message">{errors.name.message}</span>
+            )}
           </div>
           <div className="info-item">
             <Controller
@@ -95,10 +97,12 @@ export const RegisterUserModal = ({ opened, onClose }: RegisterUserProps) => {
                     { value: "Male", label: "Мужской" },
                     { value: "Female", label: "Женский" },
                   ]}
-                  error={errors.gender?.message}
                 />
               )}
             />
+            {errors.gender && (
+              <span className="error-message">{errors.gender.message}</span>
+            )}
           </div>
           <div className="info-item">
             <Controller
@@ -112,10 +116,12 @@ export const RegisterUserModal = ({ opened, onClose }: RegisterUserProps) => {
                   onChange={(date) => field.onChange(date?.toString())}
                   valueFormat="DD.MM.YYYY"
                   maxDate={new Date()}
-                  error={errors.birthday?.message}
                 />
               )}
             />
+            {errors.birthday && (
+              <span className="error-message">{errors.birthday.message}</span>
+            )}
           </div>
         </div>
 

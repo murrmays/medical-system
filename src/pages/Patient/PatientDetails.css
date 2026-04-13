@@ -7,6 +7,7 @@
   background-image: radial-gradient(#93b4df 1px, transparent 1px);
   background-size: 30px 30px;
   position: relative;
+  box-sizing: border-box;
 }
 
 .patient-page-wrapper {
@@ -18,6 +19,7 @@
   z-index: 10;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .patient-medical-card {
@@ -119,7 +121,6 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   border-radius: 2px;
-  padding: 1rem;
   cursor: pointer;
   transition: all 0.2s;
   display: flex;
@@ -128,10 +129,7 @@
 }
 
 .reset-btn {
-  background: transparent;
-  border: 1.5px solid var(--med-blue);
-  color: var(--med-blue);
-  font-size: 0.8rem;
+  padding: 1rem;
 }
 
 .reset-btn:hover {
@@ -141,8 +139,10 @@
 
 .create-inspection-btn {
   background: var(--med-blue);
+  border: 1px solid var(--med-blue);
   color: white;
   font-size: 1rem;
+  padding: 1rem;
 }
 
 .create-inspection-btn:hover {
@@ -203,6 +203,16 @@ h2.patient-name {
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   align-items: start;
+}
+
+.chain-container,
+.chain-node,
+.chain-children-container {
+  display: flex;
+  flex-direction: column;
+  width: auto !important;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 @media (max-width: 880px) {

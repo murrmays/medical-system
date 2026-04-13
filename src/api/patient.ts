@@ -1,5 +1,11 @@
-import type { Conclusion, DiagnosisType, Sorting } from "../types/enums";
+import type { Sorting } from "../types/enums";
 import { api } from "./axiosInstanse";
+import type {
+  InspectionListResponse,
+  InspectionRequest,
+  InspectionSearchResponse,
+  InspectionsFilters,
+} from "./inspection";
 
 export interface Patient {
   id: string;
@@ -29,76 +35,6 @@ export interface RegisterPatientRequest {
   name: string;
   birthday: string;
   gender: "Male" | "Female";
-}
-
-export interface Diagnosis {
-  id: string;
-  createTime: string;
-  code: string;
-  name: string;
-  description: string;
-  type: DiagnosisType;
-}
-export interface DiagnosisShort {
-  icdDiagnosisId: string;
-  description: string;
-  type: DiagnosisType;
-}
-
-export interface ConsultationShort {
-  specialityId: string;
-  comment: CommentContent;
-}
-
-export interface CommentContent {
-  content: string;
-}
-
-export interface InspectionResponse {
-  id: string;
-  createTime: string;
-  previousId: string;
-  date: string;
-  conclusion: Conclusion;
-  doctorId: string;
-  doctor: string;
-  patientId: string;
-  patient: string;
-  diagnosis: Diagnosis;
-  hasChain: boolean;
-  hasNested: boolean;
-}
-export interface InspectionRequest {
-  date: string;
-  anamnesis: string;
-  complaints: string;
-  treatment: string;
-  conclusion: Conclusion;
-  nextVisitDate: string;
-  deathDate: string;
-  previousInspectionId: string;
-  diagnoses: DiagnosisShort[];
-  consultations: ConsultationShort;
-}
-export interface InspectionSearchResponse {
-  id: string;
-  createTime: string;
-  date: string;
-  diagnosis: Diagnosis;
-}
-export interface InspectionListResponse {
-  inspections: InspectionResponse[];
-  pagination: {
-    size: number;
-    count: number;
-    current: number;
-  };
-}
-export interface InspectionsFilters {
-  grouped?: boolean;
-  icdRoots?: string[];
-  page?: number;
-  size?: number;
 }
 
 export const getAllPatients = async (

@@ -88,7 +88,7 @@ button[type="submit"] {
   margin-top: 2rem;
   background-color: var(--med-blue);
   color: white;
-  border: none;
+  border: 1.5px solid var(--med-blue);
   padding: 1rem;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
@@ -102,7 +102,6 @@ button[type="submit"]:hover {
   background: transparent;
   border: 1.5px solid var(--med-blue);
   color: var(--med-blue);
-  transform: translateY(-2px);
 }
 
 .switch-btn {

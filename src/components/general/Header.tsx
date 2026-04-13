@@ -7,7 +7,7 @@ import {
   Stack,
   Burger,
 } from "@mantine/core";
-import { getProfile, logoutDoctor } from "../api/doctor";
+import { getProfile, logoutDoctor } from "../../api/doctor";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { ChevronDown } from "lucide-react";

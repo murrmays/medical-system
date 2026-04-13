@@ -1,4 +1,5 @@
 import { api } from "./axiosInstanse";
+import type { PaginationResponse } from "./utils";
 
 export interface Speciality {
   id: string;
@@ -11,6 +12,24 @@ export interface IcdRoot {
   createTime?: string;
   code: string;
   name: string;
+}
+
+export interface IcdRootSearch {
+  code: string;
+  name: string;
+  id: string;
+  createTime: string;
+}
+
+export interface IcdRootSearchResponse {
+  records: IcdRootSearch[];
+  pagination: PaginationResponse;
+}
+
+export interface IcdSearchParams {
+  request?: string;
+  page?: number;
+  size?: number;
 }
 
 export const getSpecialities = async (): Promise<Speciality[]> => {
@@ -26,5 +45,12 @@ export const getSpecialities = async (): Promise<Speciality[]> => {
 
 export const getIcdRoots = async (): Promise<IcdRoot[]> => {
   const response = await api.get("/dictionary/icd10/roots");
+  return response.data;
+};
+
+export const searchIcdRoots = async (
+  params: IcdSearchParams,
+): Promise<IcdRootSearchResponse> => {
+  const response = await api.get("/dictionary/icd10", { params });
   return response.data;
 };

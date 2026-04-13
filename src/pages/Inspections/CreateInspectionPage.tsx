@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import z from "zod";
-import { getIcdRoots, getSpecialities } from "../../api/dictionary";
+import { getSpecialities, searchIcdRoots } from "../../api/dictionary";
 import {
   createPatientInspection,
   getPatient,
@@ -38,15 +38,23 @@ const createInspectionSchema = z
     conclusion: z.enum(["Disease", "Recovery", "Death"]),
     nextVisitDate: z.date().nullable().optional(),
     deathDate: z.date().nullable().optional(),
+    isRepeated: z.boolean().optional(),
     previousInspectionId: z.string().optional(),
     diagnoses: z.array(diagnosisSchema).min(1, "Укажите хотя бы один диагноз"),
     consultations: z.array(consultationSchema).optional(),
   })
   .superRefine((data, ctx) => {
+    if (data.isRepeated && !data.previousInspectionId) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Укажите предыдущий осмотр",
+        path: ["previousInspectionId"],
+      });
+    }
     if (data.diagnoses.filter((d) => d.type === "Main").length !== 1) {
       ctx.addIssue({
         code: "custom",
-        message: "Должен быть ровно один основной диагноз",
+        message: "Должен быть один основной диагноз",
         path: ["diagnoses"],
       });
     }
@@ -94,7 +102,6 @@ export const CreateInspectionPage = () => {
   const [inspectionSearch, setInspectionSearch] = useState("");
   const [debouncedInspectionSearch] = useDebouncedValue(inspectionSearch, 400);
 
-  const [isRepeated, setIsRepeated] = useState(!!parentId);
   const [isConsultationRequired, setIsConsultationRequired] = useState(false);
 
   const {
@@ -111,9 +118,11 @@ export const CreateInspectionPage = () => {
       conclusion: "Disease",
       diagnoses: [{ icdDiagnosisId: "", description: "", type: "Main" }],
       consultations: [],
+      isRepeated: !!parentId,
       previousInspectionId: parentId || undefined,
     },
   });
+  const isRepeated = watch("isRepeated");
 
   const {
     fields: diagFields,
@@ -136,9 +145,13 @@ export const CreateInspectionPage = () => {
     queryKey: ["specialities"],
     queryFn: getSpecialities,
   });
-  const { data: icdRoots } = useQuery({
-    queryKey: ["icdRoots"],
-    queryFn: getIcdRoots,
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery] = useDebouncedValue(searchQuery, 500);
+  const { data: icdData, isLoading: isIcdLoading } = useQuery({
+    queryKey: ["icd-search", debouncedQuery],
+    queryFn: () => searchIcdRoots({ request: debouncedQuery }),
+    enabled: debouncedQuery.length > 1,
   });
 
   const { data: previousInspections, isLoading: isInspectionsLoading } =
@@ -168,6 +181,13 @@ export const CreateInspectionPage = () => {
     if (inspectionDate > new Date(now.getTime() - 60000))
       inspectionDate = new Date(now.getTime() - 60000);
 
+    const formattedConsultations = data.consultations?.map((cons) => ({
+      specialityId: cons.specialityId,
+      comment: {
+        content: cons.comment,
+      },
+    }));
+
     const payload = {
       ...data,
       date: inspectionDate.toISOString(),
@@ -175,7 +195,7 @@ export const CreateInspectionPage = () => {
         ? data.nextVisitDate.toISOString()
         : undefined,
       deathDate: data.deathDate ? data.deathDate.toISOString() : undefined,
-      consultations: isConsultationRequired ? data.consultations : [],
+      consultations: formattedConsultations,
     };
     mutation.mutate(payload);
   };
@@ -204,15 +224,22 @@ export const CreateInspectionPage = () => {
               new Date(patient.birthday).toLocaleDateString()}
           </span>
 
-          <Switch
-            label="Повторный осмотр"
-            checked={isRepeated}
-            color="var(--med-accent)"
-            onChange={(e) => {
-              setIsRepeated(e.currentTarget.checked);
-              if (!e.currentTarget.checked)
-                setValue("previousInspectionId", undefined);
-            }}
+          <Controller
+            name="isRepeated"
+            control={control}
+            render={({ field }) => (
+              <Switch
+                label="Повторный осмотр"
+                checked={field.value}
+                color="var(--med-accent)"
+                onChange={(e) => {
+                  field.onChange(e.currentTarget.checked);
+                  if (!e.currentTarget.checked) {
+                    setValue("previousInspectionId", undefined);
+                  }
+                }}
+              />
+            )}
           />
 
           {isRepeated && (
@@ -339,25 +366,25 @@ export const CreateInspectionPage = () => {
                   </button>
                 </Group>
               ))}
+              {errors.consultations && (
+                <p className="error-message">
+                  {errors.consultations.root?.message ||
+                    errors.consultations.message}
+                </p>
+              )}
               <button
                 type="button"
                 onClick={() => appendCons({ specialityId: "", comment: "" })}
               >
                 + Добавить консультацию
               </button>
-              {errors.consultations && (
-                <p>
-                  {errors.consultations.root?.message ||
-                    errors.consultations.message}
-                </p>
-              )}
             </Stack>
           )}
         </section>
 
         <section className="diagnoses">
           <Group className="diag-header" justify="space-between" align="center">
-            <p>Диагнозы</p>
+            <p className="diag-title">Диагнозы</p>
             <button
               type="button"
               onClick={() =>
@@ -384,8 +411,14 @@ export const CreateInspectionPage = () => {
                         {...field}
                         label="Болезни"
                         searchable
+                        searchValue={searchQuery}
+                        onSearchChange={setSearchQuery}
+                        filter={({ options }) => options}
+                        nothingFoundMessage={
+                          isIcdLoading ? "Загрузка..." : "Ничего не найдено"
+                        }
                         data={
-                          icdRoots?.map((i: any) => ({
+                          icdData?.records?.map((i: any) => ({
                             value: i.id,
                             label: `${i.code} - ${i.name}`,
                           })) || []
@@ -435,7 +468,9 @@ export const CreateInspectionPage = () => {
             </Stack>
           ))}
           {errors.diagnoses && (
-            <p>{errors.diagnoses.root?.message || errors.diagnoses.message}</p>
+            <div className="error-message">
+              {errors.diagnoses.root?.message || errors.diagnoses.message}
+            </div>
           )}
         </section>
 

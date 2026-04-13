@@ -8,6 +8,9 @@
   justify-content: space-between;
   align-items: start;
   position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
 }
 
 .inspection-card-death {
@@ -42,13 +45,20 @@
 }
 
 .detail-item p {
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
-  max-width: 640px;
+  max-width: 100%;
   display: block;
-  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
+.edit-diagnosis-label {
+  color: rgb(45, 55, 72);
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 500;
+}
 .add-inspection-btn,
 .inspection-details-btn {
   display: flex;
@@ -78,8 +88,22 @@
   transform: scale(1.1);
 }
 
-.icon {
-  width: 15px;
+.toggle-btn {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  padding: 4px !important;
+  background: var(--med-blue);
+  border: transparent;
+  color: white;
+  transition: background 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background: var(--med-light);
+  color: var(--med-accent);
+  border: 1px solid var(--med-accent);
+  transform: scale(1.1);
 }
 
 .top-row,
@@ -98,8 +122,13 @@
 .chain-node {
   border-left: 2px solid var(--med-accent-light);
   margin-top: 10px;
-  padding-left: 1rem;
   transition: all 0.3s ease;
+}
+.chain-node.is-child {
+  margin-left: 2.5rem;
+  margin-top: 1rem;
+  border-left: 2px dashed #e2e8f0;
+  padding-left: 1rem;
 }
 
 .chain-trigger-wrapper {
@@ -146,5 +175,12 @@
   .inspection-details-btn .icon {
     width: 24px;
     height: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .chain-node.is-child {
+    margin-left: 0.75rem;
+    padding-left: 0.5rem;
   }
 }

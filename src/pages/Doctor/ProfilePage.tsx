@@ -6,6 +6,29 @@ import { Controller, useForm } from "react-hook-form";
 import { IMaskInput } from "react-imask";
 import { Select } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const profileSchema = z.object({
+  name: z.string().min(1, "Введите имя"),
+  gender: z.enum(["Male", "Female"], {
+    error: () => "Выберите пол",
+  }),
+  birthday: z
+    .string()
+    .refine(
+      (date) => new Date(date) < new Date(),
+      "Дата рождения должна быть в прошлом",
+    ),
+  phone: z.string().min(18, "Введите полный номер телефона"),
+  email: z.email("Введите корректную почту"),
+  password: z
+    .string()
+    .min(6, "Пароль должен иметь минимум 6 символов")
+    .regex(/\d/, "Пароль должен содержать хотя бы одну цифру"),
+});
+
+type ProfileFormValues = z.infer<typeof profileSchema>;
 
 export const ProfilePage = () => {
   const genderData = [
@@ -22,7 +45,15 @@ export const ProfilePage = () => {
     queryKey: ["profile"],
     queryFn: getProfile,
   });
-  const { register, handleSubmit, control, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<ProfileFormValues>({
+    resolver: zodResolver(profileSchema),
+  });
   useEffect(() => {
     if (profile) {
       reset({
@@ -62,6 +93,9 @@ export const ProfilePage = () => {
               ) : (
                 <p>{profile?.name}</p>
               )}
+              {errors.name && (
+                <span className="error-message">{errors.name.message}</span>
+              )}
             </div>
 
             <div className="info-item">
@@ -70,6 +104,9 @@ export const ProfilePage = () => {
                 <input {...register("email")} className="edit-input" />
               ) : (
                 <p>{profile?.email}</p>
+              )}
+              {errors.email && (
+                <span className="error-message">{errors.email.message}</span>
               )}
             </div>
 
@@ -91,6 +128,7 @@ export const ProfilePage = () => {
                       maxDate={new Date()}
                       className="mantine-input"
                       variant="unstyled"
+                      error={errors.birthday?.message}
                     />
                   )}
                 />
@@ -117,6 +155,9 @@ export const ProfilePage = () => {
               ) : (
                 <p>{formatPhone(profile?.phone)}</p>
               )}
+              {errors.phone && (
+                <span className="error-message">{errors.phone.message}</span>
+              )}
             </div>
 
             <div className="info-item">
@@ -131,6 +172,7 @@ export const ProfilePage = () => {
                       placeholder="Мужской"
                       data={genderData}
                       className="mantine-input"
+                      error={errors.gender?.message}
                     />
                   )}
                 />

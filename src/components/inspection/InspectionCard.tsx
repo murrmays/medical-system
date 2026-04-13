@@ -1,15 +1,24 @@
 import { useNavigate } from "react-router-dom";
-import type { InspectionResponse } from "../api/patient";
+import type { PatientInspectionResponse } from "../../api/inspection";
 import "./InspectionCard.css";
-import { Conclusion } from "../types/enums";
-import { Plus, Search } from "lucide-react";
+import { Conclusion } from "../../types/enums";
+import { ChevronDown, Minus, Plus, Search } from "lucide-react";
 
 interface InspectionCardProps {
-  inspection: InspectionResponse;
+  inspection: PatientInspectionResponse;
   isDead?: boolean;
+  isGrouped?: boolean;
+  isExpanded?: boolean;
+  onToggleExpand?: () => void;
 }
 
-export const InspectionCard = ({ inspection, isDead }: InspectionCardProps) => {
+export const InspectionCard = ({
+  inspection,
+  isDead,
+  isGrouped,
+  isExpanded,
+  onToggleExpand,
+}: InspectionCardProps) => {
   const conclusionLabels = {
     [Conclusion.Disease]: "Болезнь",
     [Conclusion.Recovery]: "Выздоровление",
@@ -20,19 +29,32 @@ export const InspectionCard = ({ inspection, isDead }: InspectionCardProps) => {
   const patientId = inspection.patientId;
   const hasNested = inspection.hasNested;
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate(`/patient/${inspection.id}`);
-  };
 
   return (
     <div
       className={`inspection-card ${isDeath ? "inspection-card-death" : ""}`}
     >
+      {isGrouped && inspection.hasNested && (
+        <button className="toggle-btn" onClick={onToggleExpand}>
+          {isExpanded ? (
+            <Minus className="icon" />
+          ) : (
+            <ChevronDown className="icon" />
+          )}
+        </button>
+      )}
       <div className="top-row">
         <span className="createDate">
           {new Date(inspection.createTime).toLocaleDateString("ru-RU")}
         </span>
-        <button className="inspection-details-btn" onClick={handleClick}>
+        <button
+          className="inspection-details-btn"
+          onClick={() =>
+            navigate(`/inspection/${inspection.id}`, {
+              state: { patientId: patientId },
+            })
+          }
+        >
           <Search className="icon" />
           <span className="btn-text">Детали осмотра</span>
         </button>

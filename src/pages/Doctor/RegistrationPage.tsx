@@ -7,8 +7,9 @@ import { registerDoctor } from "../../api/doctor";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 import { getSpecialities } from "../../api/dictionary";
-import { Select } from "@mantine/core";
+import { Select, Text } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
+import { useState } from "react";
 
 const registerSchema = z.object({
   name: z.string().min(1, "Введите имя"),
@@ -57,6 +58,9 @@ export const RegisterPage = () => {
     },
   });
 
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
+    null,
+  );
   const mutation = useMutation({
     mutationFn: registerDoctor,
     onSuccess: (data) => {
@@ -64,8 +68,8 @@ export const RegisterPage = () => {
       navigate("/profile");
       window.location.reload();
     },
-    onError: (error: any) => {
-      alert(error.response?.data?.message || "Ошибка регистрации");
+    onError: () => {
+      setSubmitStatus("error");
     },
   });
 
@@ -197,6 +201,12 @@ export const RegisterPage = () => {
               <span className="error-message">{errors.password.message}</span>
             )}
           </div>
+
+          {submitStatus === "error" && (
+            <Text mt="sm" ta="center" fw={500} className="error-message">
+              Неверный логин или пароль
+            </Text>
+          )}
 
           <button type="submit" disabled={mutation.isPending}>
             {mutation.isPending ? "Регистрация..." : "Зарегистрироваться"}

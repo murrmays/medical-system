@@ -1,18 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPatient, getPatientsInspections } from "../../api/patient";
-import { useNavigate, useParams } from "react-router-dom";
 import { Loader, MultiSelect, Radio, Select, Group } from "@mantine/core";
-import { Mars, Venus } from "lucide-react";
 import { useInspectionsFilter } from "../../hooks/inspectionsFilter";
 import { getIcdRoots } from "../../api/dictionary";
-import "./PatientDetails.css";
+import "../Patient/Patients.css";
 import { InspectionCard } from "../../components/inspection/InspectionCard";
 import { PaginationFooter } from "../../components/general/PaginationFooter";
 import { InspectionChain } from "../../components/inspection/InspectionChain";
+import { getConsultationInspections } from "../../api/consultation";
 
-export const PatientDetailsPage = () => {
+export const ConsultationList = () => {
   const { filters, setFilters } = useInspectionsFilter();
-  const navigate = useNavigate();
   const { data: icdRootsDictionary, isLoading: isRootsLoading } = useQuery({
     queryKey: ["icdRoots"],
     queryFn: getIcdRoots,
@@ -27,26 +24,11 @@ export const PatientDetailsPage = () => {
     label: `${size}`,
   }));
 
-  const { id } = useParams<{ id: string }>();
-  const { data: patient, isLoading } = useQuery({
-    queryKey: ["patient", id],
-    queryFn: () => getPatient(id as string),
-  });
-  const { data: inspections, isLoading: isInspecLoading } = useQuery({
+  const { data: inspections, isLoading: isLoading } = useQuery({
     queryKey: ["inspections", filters],
-    queryFn: () => getPatientsInspections(patient.id, filters),
+    queryFn: () => getConsultationInspections(filters),
   });
 
-  const { data: latestInspection } = useQuery({
-    queryKey: ["patientDeathCheck", patient?.id],
-    queryFn: () =>
-      getPatientsInspections(patient.id, {
-        page: 1,
-        size: 1,
-      }),
-    enabled: !!patient?.id,
-  });
-  const isDead = latestInspection?.inspections?.[0]?.conclusion === "Death";
   const isGrouped = filters.grouped;
 
   if (isLoading)
@@ -55,43 +37,10 @@ export const PatientDetailsPage = () => {
         <Loader size="md" />
       </div>
     );
-  if (!patient)
-    return <div className="page-placeholder">Пациент не найден</div>;
 
   return (
     <div className="patient-page-root">
       <div className="patient-page-wrapper">
-        <section className="patient-medical-card">
-          <div className="card-header-row">
-            <h1 className="page-title">Медицинская карта пациента</h1>
-            {!isDead && (
-              <button
-                className="create-inspection-btn"
-                onClick={() =>
-                  navigate("/inspection/create", { state: { patientId: id } })
-                }
-              >
-                Добавить осмотр
-              </button>
-            )}
-          </div>
-          <div className="card-info-row">
-            <div className="patient-name-group">
-              <span className="patient-card-name">
-                {patient.name}{" "}
-                {patient.gender === "Male" ? (
-                  <Mars className="gender-icon" size={20} />
-                ) : (
-                  <Venus className="gender-icon" size={20} />
-                )}
-              </span>
-            </div>
-            <div className="patient-birthdate">
-              Дата рождения:{" "}
-              {new Date(patient.birthday).toLocaleDateString("ru-RU")}
-            </div>
-          </div>
-        </section>
         <section className="inspections-filter-card">
           <h2 className="filter-card-title">Фильтры и сортировка</h2>
           <div className="filters-grid">
@@ -149,14 +98,14 @@ export const PatientDetailsPage = () => {
           </div>
         </section>
         <section className="inspections-list">
-          {isInspecLoading ? (
+          {isLoading ? (
             <Loader size={"sm"} />
           ) : filters.grouped ? (
             inspections?.inspections.map((rootInspection) => (
               <InspectionChain
                 key={rootInspection.id}
                 rootInspection={rootInspection}
-                isDead={isDead}
+                isDead={true}
                 isGrouped={isGrouped}
               />
             ))
@@ -165,8 +114,8 @@ export const PatientDetailsPage = () => {
               <InspectionCard
                 key={i.id}
                 inspection={i}
-                isDead={isDead}
                 isGrouped={isGrouped}
+                isDead={true}
               />
             ))
           )}

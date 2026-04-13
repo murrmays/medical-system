@@ -73,7 +73,7 @@
   background-color: var(--med-blue);
   max-height: fit-content;
   color: white;
-  border: none;
+  border: 1.5px solid var(--med-blue);
   padding: 8px;
   border-radius: 2px;
   font-family: "Montserrat", sans-serif;

@@ -5,6 +5,8 @@ import { z } from "zod";
 import { loginDoctor } from "../../api/doctor";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
+import { useState } from "react";
+import { Text } from "@mantine/core";
 
 const loginSchema = z.object({
   email: z.email("Введите корректную почту").min(1, "Введите почту"),
@@ -27,16 +29,20 @@ export const LoginPage = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
+    null,
+  );
+
   const mutation = useMutation({
     mutationFn: loginDoctor,
     onSuccess: (data) => {
       localStorage.setItem("token", data.token);
       console.log(data.token);
+      setSubmitStatus("success");
       navigate("/profile");
-      window.location.reload();
     },
-    onError: (error: any) => {
-      alert(error.response?.data?.message || "Неверная почта или пароль");
+    onError: () => {
+      setSubmitStatus("error");
     },
   });
 
@@ -75,6 +81,11 @@ export const LoginPage = () => {
               <span className="error-message">{errors.password.message}</span>
             )}
           </div>
+          {submitStatus === "error" && (
+            <Text mt="sm" ta="center" fw={500} className="error-message">
+              Неверный логин или пароль
+            </Text>
+          )}
 
           <button type="submit" disabled={mutation.isPending}>
             {mutation.isPending ? "Вход..." : "Войти"}
