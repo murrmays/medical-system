@@ -1,0 +1,20 @@
+.pagination-footer {
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: white;
+  border-top: 3px solid #e2e8f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.mantine-Pagination-control[data-active] {
+  background-color: var(--med-blue) !important;
+  color: white !important;
+}

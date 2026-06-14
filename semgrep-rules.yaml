@@ -1,0 +1,34 @@
+rules:
+  - id: detect-dangerously-set-inner-html
+    languages:
+      - typescript
+      - javascript
+    severity: WARNING
+    message: "Обнаружено использование dangerouslySetInnerHTML! Это может привести к XSS-уязвимостям. Убедитесь, что входящие данные тщательно очищены (например, с помощью dompurify)."
+    pattern: |
+      dangerouslySetInnerHTML={$...ANY}
+
+  - id: detect-hardcoded-secrets
+    languages:
+      - typescript
+      - javascript
+    severity: ERROR
+    message: "Возможно, в коде зашит секретный ключ или пароль! Используйте переменные окружения process.env или import.meta.env."
+    pattern-either:
+      - pattern: const $KEY = "AIzaSy$...ANY"
+      - pattern: const $KEY = "secret_$...ANY"
+      - pattern: const $PASSWORD = "$VAL"
+    filter-metavariable:
+      metavariable: $PASSWORD
+      regex: "(?i)(password|passwd|secret|api_key|token)"
+
+  - id: ban-ts-ignore-and-any
+    languages:
+      - typescript
+    severity: WARNING
+    message: "Избегайте использования @ts-ignore или типа 'any'. Это лишает вас преимуществ TypeScript и может скрыть критические баги. Используйте 'unknown' или опишите правильный интерфейс."
+    pattern-either:
+      - pattern: |
+          $X: any
+      - pattern: |
+          $X as any
